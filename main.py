@@ -28,6 +28,11 @@ ENTRY = (
 
 
 def main() -> None:
+    """Validate the entry length, then write it to /output/entry.txt."""
+    # Competition rule: entry must be 1-200 characters (not counting the
+    # trailing newline). Enforce it here so a future text change fails
+    # loudly instead of silently shipping an over-long entry.
+    assert 1 <= len(ENTRY) <= 200, f"entry length {len(ENTRY)} out of range"
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(ENTRY + "\n")
